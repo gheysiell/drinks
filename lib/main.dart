@@ -1,8 +1,8 @@
-import 'package:drinks/features/data/datasources/remote/drinks_datasource_remote_http.dart';
-import 'package:drinks/features/data/repositories/drinks_repository_impl.dart';
-import 'package:drinks/features/domain/usecases/drinks_usecase.dart';
-import 'package:drinks/features/presentation/viewmodels/drinks_viewmodel.dart';
-import 'package:drinks/features/presentation/views/drinks_view.dart';
+import 'package:drinks/features/drinks/data/datasources/remote/drinks_datasource_remote_http.dart';
+import 'package:drinks/features/drinks/data/repositories/drinks_repository_impl.dart';
+import 'package:drinks/features/drinks/domain/usecases/drinks_usecase.dart';
+import 'package:drinks/features/drinks/presentation/viewmodels/drinks_viewmodel.dart';
+import 'package:drinks/features/drinks/presentation/views/drinks_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

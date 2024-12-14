@@ -1,5 +1,5 @@
-import 'package:drinks/features/domain/entities/drinks_entity.dart';
-import 'package:drinks/features/domain/repositories/drinks_repository.dart';
+import 'package:drinks/features/drinks/domain/entities/drinks_entity.dart';
+import 'package:drinks/features/drinks/domain/repositories/drinks_repository.dart';
 
 class DrinksUseCase {
   DrinksRepository drinksRepository;

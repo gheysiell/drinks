@@ -1,5 +1,5 @@
-import 'package:drinks/features/domain/entities/drinks_entity.dart';
-import 'package:drinks/features/domain/usecases/drinks_usecase.dart';
+import 'package:drinks/features/drinks/domain/entities/drinks_entity.dart';
+import 'package:drinks/features/drinks/domain/usecases/drinks_usecase.dart';
 import 'package:flutter/material.dart';
 
 class DrinksViewModel extends ChangeNotifier {

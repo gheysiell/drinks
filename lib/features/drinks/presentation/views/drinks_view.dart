@@ -1,4 +1,4 @@
-import 'package:drinks/features/presentation/viewmodels/drinks_viewmodel.dart';
+import 'package:drinks/features/drinks/presentation/viewmodels/drinks_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -1,4 +1,4 @@
-import 'package:drinks/features/domain/entities/drinks_entity.dart';
+import 'package:drinks/features/drinks/domain/entities/drinks_entity.dart';
 
 class DrinksDto {
   String name, description, urlImage;

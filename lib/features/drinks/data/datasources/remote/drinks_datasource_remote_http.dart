@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:drinks/core/constants/contants.dart';
-import 'package:drinks/features/data/dtos/drinks_dto.dart';
+import 'package:drinks/features/drinks/data/dtos/drinks_dto.dart';
 import 'package:http/http.dart' as http;
 
 abstract class DrinksDataSourceRemoteHttp {
