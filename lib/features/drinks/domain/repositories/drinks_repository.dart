@@ -1,5 +1,5 @@
-import 'package:drinks/features/drinks/domain/entities/drinks_entity.dart';
+import 'package:drinks/features/drinks/domain/entities/drinks_response_entity.dart';
 
 abstract class DrinksRepository {
-  Future<List<Drink>> getDrinks();
+  Future<DrinkResponse> getDrinks(String search);
 }
