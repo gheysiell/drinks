@@ -9,6 +9,7 @@ class DrinksViewModel extends ChangeNotifier {
   List<Drink> drinks = [];
   DrinksUseCase drinksUseCase;
   bool isLoading = false;
+  bool isSearching = false;
   bool textSearchControllerFocused = false;
 
   DrinksViewModel({
@@ -25,13 +26,23 @@ class DrinksViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setIsSearching(bool value) {
+    isSearching = value;
+    notifyListeners();
+  }
+
   void setTextSearchControllerFocused(bool value) {
     textSearchControllerFocused = value;
     notifyListeners();
   }
 
   Future<void> getDrinks(String search) async {
-    if (search.isEmpty) search = '%';
+    if (search.isEmpty) {
+      search = '%';
+      setIsSearching(false);
+    } else {
+      setIsSearching(true);
+    }
 
     setIsLoading(true);
 

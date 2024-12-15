@@ -106,7 +106,7 @@ class DrinksViewState extends State<DrinksView> {
                         color: Palette.orange,
                         size: 26,
                       ),
-                      suffixIcon: searchController.text.isNotEmpty
+                      suffixIcon: searchController.text.isNotEmpty && drinksViewModel.isSearching
                           ? IconButton(
                               icon: const Icon(
                                 Icons.close_rounded,

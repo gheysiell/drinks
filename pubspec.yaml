@@ -19,12 +19,12 @@ dependencies:
   photo_view: ^0.15.0
   cached_network_image: ^3.4.0
   connectivity: ^3.0.6
-  flutter_launcher_icons: ^0.14.2
   flutter_native_splash: ^2.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.14.2"
   
   flutter_lints: ^3.0.0
 
@@ -33,14 +33,12 @@ flutter:
   assets:
     - assets/images/
 
-flutter_launcher_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/images/icon.png"
-  min_sdk_android: 21
-  web:
-    generate: false    
-  windows:
-    generate: false    
-  macos:
-    generate: false    
+flutter_native_splash:
+  color: "#FFC773"
+  image: assets/images/icon_splash.png
+
+  android_12:
+    image: assets/images/icon_splash.png
+    icon_background_color: #ffffff
+
+  web: false
