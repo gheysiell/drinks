@@ -13,7 +13,7 @@ The project follows the **Clean architecture with MVVM** architecture with a **f
 
 ## Project Statistics
 
-- **Lines of code**: 1,045
+- **Lines of code**: 1,048
 - **Files**: 21
 - **Folders**: 21
 - **Screens**: 2

@@ -85,7 +85,7 @@ class DrinksDetailsViewState extends State<DrinksDetailsView> {
             tooltip: 'Voltar',
             icon: const Icon(
               Icons.arrow_back_rounded,
-              color: Colors.white,
+              color: Palette.white,
               size: 30,
             )),
       ),
@@ -111,7 +111,7 @@ class DrinksDetailsViewState extends State<DrinksDetailsView> {
                     },
                     style: const ButtonStyle(
                       padding: MaterialStatePropertyAll(EdgeInsets.zero),
-                      foregroundColor: MaterialStatePropertyAll(Colors.orange),
+                      foregroundColor: MaterialStatePropertyAll(Palette.orange),
                       fixedSize: MaterialStatePropertyAll(Size(160, 160)),
                     ),
                     child: CachedNetworkImage(

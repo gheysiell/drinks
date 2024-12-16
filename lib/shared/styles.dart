@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class Styles {
   static const appBarTitle = TextStyle(
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.bold,
     fontSize: 22,
     color: Palette.white,
   );

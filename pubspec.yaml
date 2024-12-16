@@ -32,6 +32,13 @@ flutter:
   uses-material-design: true  
   assets:
     - assets/images/
+    - assets/fonts/
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito/static/Nunito-Regular.ttf
+        - asset: assets/fonts/Nunito/static/Nunito-Bold.ttf
+          weight: 700
 
 flutter_native_splash:
   color: "#FFC773"

@@ -3,6 +3,7 @@ import 'package:drinks/core/providers.dart';
 import 'package:drinks/features/drinks/presentation/views/drinks_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:drinks/shared/palette.dart';
 
 void main() {
   runApp(const Drinks());
@@ -20,11 +21,12 @@ class Drinks extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         navigatorKey: NavigationService.navigatorKey,
         theme: ThemeData(
+          fontFamily: 'Nunito',
           textSelectionTheme: const TextSelectionThemeData(
-            selectionHandleColor: Colors.orange,
-            cursorColor: Colors.orange,
+            selectionHandleColor: Palette.orange,
+            cursorColor: Palette.orange,
           ),
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+          colorScheme: ColorScheme.fromSeed(seedColor: Palette.orange),
           useMaterial3: true,
         ),
         home: const DrinksApp(),

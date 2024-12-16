@@ -42,7 +42,7 @@ class DrinksViewState extends State<DrinksView> {
       drinksViewModel = context.watch<DrinksViewModel>();
       drinksDetailsViewModel = context.watch<DrinksDetailsViewModel>();
 
-      Future.delayed(Duration.zero, () async {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
         await drinksViewModel.getDrinks(searchController.text);
       });
 
@@ -164,6 +164,7 @@ class DrinksViewState extends State<DrinksView> {
             ),
           ),
         ),
+        backgroundColor: Palette.white,
         body: Container(
           alignment: Alignment.center,
           child: drinksViewModel.isLoading
@@ -242,7 +243,7 @@ class DrinksViewState extends State<DrinksView> {
                                 },
                                 style: const ButtonStyle(
                                   padding: MaterialStatePropertyAll(EdgeInsets.zero),
-                                  foregroundColor: MaterialStatePropertyAll(Colors.orange),
+                                  foregroundColor: MaterialStatePropertyAll(Palette.orange),
                                 ),
                                 child: CachedNetworkImage(
                                   imageUrl: drinksViewModel.drinks[index].urlImage,
