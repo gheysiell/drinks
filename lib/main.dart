@@ -29,17 +29,8 @@ class Drinks extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Palette.orange),
           useMaterial3: true,
         ),
-        home: const DrinksApp(),
+        home: const DrinksView(),
       ),
     );
-  }
-}
-
-class DrinksApp extends StatelessWidget {
-  const DrinksApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const DrinksView();
   }
 }

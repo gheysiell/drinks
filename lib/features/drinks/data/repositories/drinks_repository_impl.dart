@@ -1,5 +1,5 @@
 import 'package:drinks/core/enums.dart';
-import 'package:drinks/core/functions.dart';
+import 'package:drinks/shared/functions.dart';
 import 'package:drinks/features/drinks/data/datasources/remote/drinks_datasource_remote_http.dart';
 import 'package:drinks/features/drinks/data/dtos/drinks_response_dto.dart';
 import 'package:drinks/features/drinks/domain/entities/drinks_response_entity.dart';

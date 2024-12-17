@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:drinks/core/functions.dart';
+import 'package:drinks/shared/functions.dart';
 import 'package:drinks/features/drinks_details/presentation/viewmodels/drinks_details_viewmodel.dart';
 import 'package:drinks/shared/palette.dart';
 import 'package:drinks/shared/styles.dart';
