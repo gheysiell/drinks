@@ -18,8 +18,9 @@ dependencies:
   html: ^0.15.5
   photo_view: ^0.15.0
   cached_network_image: ^3.4.0
-  connectivity: ^3.0.6
   flutter_native_splash: ^2.4.0
+  path: ^1.9.0
+  connectivity_plus: ^6.1.1
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +47,22 @@ flutter_native_splash:
 
   android_12:
     image: assets/images/icon_splash.png
-    icon_background_color: #ffffff
+    icon_background_color: "#ffffff"
 
   web: false
+
+flutter_launcher_icons:  
+  android: "launcher_icon"
+  min_sdk_android: 21 
+  image_path: "assets/images/icon.png"
+  adaptive_icon_foreground: "assets/images/icon.png"
+  adaptive_icon_background: "#ffffff"  
+  ios: true
+  image_path_ios: "assets/images/icon.png"
+  remove_alpha_channel_ios: true
+  web:
+    generate: false
+  windows:
+    generate: false
+  macos:
+    generate: false

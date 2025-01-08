@@ -3,7 +3,7 @@ import 'package:drinks/features/drinks/data/dtos/drinks_dto.dart';
 import 'package:drinks/features/drinks/domain/entities/drinks_response_entity.dart';
 
 class DrinkResponseDto {
-  List<DrinksDto> drinksDto;
+  List<DrinkDto> drinksDto;
   ResponseStatus responseStatus;
 
   DrinkResponseDto({

@@ -14,6 +14,7 @@ abstract class DrinksDataSourceRemoteHttp {
 class DrinksDataSourceRemoteHttpImpl extends DrinksDataSourceRemoteHttp {
   @override
   Future<DrinkResponseDto> getDrinks(String search) async {
+    if (search == '') search = '%';
     final Uri url = Uri.parse('${Constants.urlApi}api/json/v1/1/search.php?s=$search');
     final DrinkResponseDto drinkResponseDto = DrinkResponseDto(
       drinksDto: [],
@@ -27,13 +28,13 @@ class DrinksDataSourceRemoteHttpImpl extends DrinksDataSourceRemoteHttp {
 
       if (json.decode(response.body)['drinks'] is List) {
         List drinks = json.decode(response.body)['drinks'];
-        drinkResponseDto.drinksDto = drinks.map((drink) => DrinksDto.fromMap(drink)).toList();
+        drinkResponseDto.drinksDto = drinks.map((drink) => DrinkDto.fromMap(drink)).toList();
       }
     } on TimeoutException {
-      log('timeout exception in DrinksDataSourceRemoteHttpImpl.getDrinks');
+      log('${Constants.timeoutDurationRemoteHttp} DrinksDataSourceRemoteHttpImpl.getDrinks');
       drinkResponseDto.responseStatus = ResponseStatus.timeout;
     } catch (e) {
-      log('generic exception in  DrinksDataSourceRemoteHttpImpl.getDrinks', error: e);
+      log('${Constants.genericExceptionMessage} DrinksDataSourceRemoteHttpImpl.getDrinks', error: e);
       drinkResponseDto.responseStatus = ResponseStatus.error;
     }
 

@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:drinks/core/enums.dart';
 import 'package:drinks/core/navigation_service.dart';
 import 'package:drinks/shared/palette.dart';
@@ -115,8 +115,10 @@ class Functions {
   }
 
   static Future<bool> checkConn() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if ((connectivityResult != ConnectivityResult.mobile) && (connectivityResult != ConnectivityResult.wifi)) {
+    List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
+    if (!connectivityResult.contains(ConnectivityResult.mobile) &&
+        !connectivityResult.contains(ConnectivityResult.wifi) &&
+        !connectivityResult.contains(ConnectivityResult.ethernet)) {
       return false;
     }
     return true;

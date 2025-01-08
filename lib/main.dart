@@ -23,10 +23,12 @@ class Drinks extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Nunito',
           textSelectionTheme: const TextSelectionThemeData(
-            selectionHandleColor: Palette.orange,
-            cursorColor: Palette.orange,
+            selectionHandleColor: Palette.primary,
+            cursorColor: Palette.primary,
           ),
-          colorScheme: ColorScheme.fromSeed(seedColor: Palette.orange),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Palette.primary,
+          ),
           useMaterial3: true,
         ),
         home: const DrinksView(),

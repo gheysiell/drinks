@@ -1,5 +1,5 @@
 import 'package:drinks/core/enums.dart';
-import 'package:drinks/shared/functions.dart';
+import 'package:drinks/utils/functions.dart';
 import 'package:drinks/features/drinks/domain/entities/drinks_entity.dart';
 import 'package:drinks/features/drinks/domain/entities/drinks_response_entity.dart';
 import 'package:drinks/features/drinks/domain/usecases/drinks_usecase.dart';
@@ -38,7 +38,6 @@ class DrinksViewModel extends ChangeNotifier {
 
   Future<void> getDrinks(String search) async {
     if (search.isEmpty) {
-      search = '%';
       setIsSearching(false);
     } else {
       setIsSearching(true);

@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:drinks/shared/functions.dart';
+import 'package:drinks/utils/functions.dart';
 import 'package:drinks/features/drinks_details/presentation/viewmodels/drinks_details_viewmodel.dart';
 import 'package:drinks/shared/palette.dart';
 import 'package:drinks/shared/styles.dart';
@@ -77,17 +77,21 @@ class DrinksDetailsViewState extends State<DrinksDetailsView> {
           'Drink',
           style: Styles.appBarTitle,
         ),
-        backgroundColor: Palette.orange,
+        titleSpacing: 4,
+        backgroundColor: Palette.primary,
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            tooltip: 'Voltar',
-            icon: const Icon(
-              Icons.arrow_back_rounded,
-              color: Palette.white,
-              size: 30,
-            )),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          tooltip: 'Voltar',
+          icon: const Icon(
+            Icons.arrow_back_rounded,
+            color: Palette.white,
+            size: 30,
+          ),
+        ),
+        elevation: 6,
+        shadowColor: Colors.black,
       ),
       body: ListView.builder(
         itemCount: textControllers.length + 1,
@@ -99,9 +103,9 @@ class DrinksDetailsViewState extends State<DrinksDetailsView> {
 
           return index == 0
               ? Container(
-                  height: 160,
-                  width: 160,
+                  height: 200,
                   alignment: Alignment.center,
+                  margin: const EdgeInsets.only(bottom: 10),
                   child: TextButton(
                     onPressed: () {
                       Functions.showNetworkImage(
@@ -109,26 +113,36 @@ class DrinksDetailsViewState extends State<DrinksDetailsView> {
                         drinksDetailsViewModel.drink!.urlImage,
                       );
                     },
-                    style: const ButtonStyle(
-                      padding: MaterialStatePropertyAll(EdgeInsets.zero),
-                      foregroundColor: MaterialStatePropertyAll(Palette.orange),
-                      fixedSize: MaterialStatePropertyAll(Size(160, 160)),
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      foregroundColor: Palette.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                     child: CachedNetworkImage(
                       imageUrl: drinksDetailsViewModel.drink!.urlImage,
+                      imageBuilder: (context, imageProvider) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image(
+                            image: imageProvider,
+                          ),
+                        );
+                      },
                       placeholder: (context, url) {
                         return Container(
                           alignment: Alignment.center,
                           child: const CircularProgressIndicator(
                             backgroundColor: Palette.white,
-                            color: Palette.orange,
+                            color: Palette.primary,
                             strokeWidth: 3,
                           ),
                         );
                       },
                       errorWidget: (context, url, error) => const Icon(
                         Icons.local_bar_rounded,
-                        color: Palette.orange,
+                        color: Palette.primary,
                         size: 30,
                       ),
                     ),
@@ -166,21 +180,21 @@ class DrinksDetailsViewState extends State<DrinksDetailsView> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: const BorderSide(
-                          color: Palette.orange,
+                          color: Palette.primary,
                           width: 2,
                         ),
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: const BorderSide(
-                          color: Palette.orange,
+                          color: Palette.primary,
                           width: 2,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: const BorderSide(
-                          color: Palette.orange,
+                          color: Palette.primary,
                           width: 2,
                         ),
                       ),

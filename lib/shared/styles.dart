@@ -2,9 +2,9 @@ import 'package:drinks/shared/palette.dart';
 import 'package:flutter/material.dart';
 
 class Styles {
-  static const appBarTitle = TextStyle(
+  static const TextStyle appBarTitle = TextStyle(
     fontWeight: FontWeight.bold,
-    fontSize: 22,
+    fontSize: 23,
     color: Palette.white,
   );
 }

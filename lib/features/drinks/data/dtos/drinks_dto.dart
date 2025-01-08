@@ -1,27 +1,60 @@
+import 'package:drinks/features/drinks/data/dtos/drinks_ingredient_dto.dart';
 import 'package:drinks/features/drinks/domain/entities/drinks_entity.dart';
+import 'package:drinks/utils/format_functions.dart';
 
-class DrinksDto {
+class DrinkDto {
   int id;
-  String name, glass, category, urlImage;
+  String name, glass, category, urlImage, instructions;
   bool isAlcoholic;
+  List<DrinkIngredientDto> drinkIngredientsDto;
 
-  DrinksDto({
+  DrinkDto({
     required this.id,
     required this.name,
     required this.glass,
     required this.category,
     required this.urlImage,
     required this.isAlcoholic,
+    required this.instructions,
+    required this.drinkIngredientsDto,
   });
 
-  factory DrinksDto.fromMap(Map<String, dynamic> map) {
-    return DrinksDto(
-        id: int.parse(map['idDrink'] ?? '0'),
-        name: map['strDrink'] ?? '',
-        glass: map['strGlass'] ?? '',
-        category: map['strCategory'] ?? '',
-        urlImage: map['strDrinkThumb'] ?? '',
-        isAlcoholic: map['strAlcoholic'] == 'Alcoholic' ? true : false);
+  factory DrinkDto.fromMap(Map<String, dynamic> map, {bool isFromLocal = false}) {
+    String ingredientDescriptionIndexName = 'strIngredient';
+    String ingredientMeasureIndexName = 'strMeasure';
+    List<DrinkIngredientDto> drinkIngredientsDto = [];
+
+    for (int i = 0; i < 15; i++) {
+      String ingredientDescriptionIndexNameFormatted = ('$ingredientDescriptionIndexName${(i + 1)}');
+      String ingredientMeasureIndexNameFormatted = ('$ingredientMeasureIndexName${i + 1}');
+
+      if (map[ingredientDescriptionIndexNameFormatted] == null || map[ingredientMeasureIndexNameFormatted] == null) {
+        break;
+      }
+
+      String ingredientDescriptionFormatted = map[ingredientDescriptionIndexNameFormatted];
+      String ingredientMeasureFormatted = map[ingredientMeasureIndexNameFormatted];
+
+      drinkIngredientsDto.add(
+        DrinkIngredientDto(
+          description: ingredientDescriptionFormatted,
+          measure: ingredientMeasureFormatted,
+        ),
+      );
+    }
+
+    DrinkDto drinkDto = DrinkDto(
+      id: FormatFunctions.safeParseInt(map['idDrink']),
+      name: FormatFunctions.safeParseString(map['strDrink']),
+      glass: FormatFunctions.safeParseString(map['strGlass']),
+      category: FormatFunctions.safeParseString(map['strCategory']),
+      urlImage: FormatFunctions.safeParseString(map['strDrinkThumb']),
+      isAlcoholic: FormatFunctions.safeParseString(map['strAlcoholic']) == 'Alcoholic' ? true : false,
+      instructions: FormatFunctions.safeParseString(map['strInstructions']),
+      drinkIngredientsDto: drinkIngredientsDto,
+    );
+
+    return drinkDto;
   }
 
   Drink toEntity() {
@@ -32,6 +65,8 @@ class DrinksDto {
       category: category,
       urlImage: urlImage,
       isAlcoholic: isAlcoholic,
+      intructions: instructions,
+      drinkIngredients: drinkIngredientsDto.map((drinkEngredient) => drinkEngredient.toEntity()).toList(),
     );
   }
 }

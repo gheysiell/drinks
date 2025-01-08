@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:drinks/shared/functions.dart';
+import 'package:drinks/shared/input_styles.dart';
+import 'package:drinks/utils/functions.dart';
 import 'package:drinks/features/drinks/presentation/viewmodels/drinks_viewmodel.dart';
 import 'package:drinks/features/drinks_details/presentation/viewmodels/drinks_details_viewmodel.dart';
 import 'package:drinks/features/drinks_details/presentation/views/drinks_details_view.dart';
@@ -22,6 +23,7 @@ class DrinksViewState extends State<DrinksView> {
   late DrinksDetailsViewModel drinksDetailsViewModel;
   final TextEditingController searchController = TextEditingController();
   final FocusNode searchFocusNode = FocusNode();
+  final ScrollController scrollController = ScrollController();
   final double appBarHeight = 100;
   bool initialized = false;
 
@@ -46,6 +48,10 @@ class DrinksViewState extends State<DrinksView> {
         await drinksViewModel.getDrinks(searchController.text);
       });
 
+      scrollController.addListener(() {
+        if (searchFocusNode.hasFocus) searchFocusNode.unfocus();
+      });
+
       initialized = true;
     }
   }
@@ -66,23 +72,24 @@ class DrinksViewState extends State<DrinksView> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(appBarHeight),
           child: AppBar(
-            title: const Row(
+            title: const Text(
+              'Drinks',
+              style: Styles.appBarTitle,
+            ),
+            leading: const Row(
               children: [
+                SizedBox(
+                  width: 14,
+                ),
                 Icon(
                   Icons.local_bar_rounded,
                   color: Palette.white,
-                  size: 28,
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                Text(
-                  'Drinks',
-                  style: Styles.appBarTitle,
-                ),
+                  size: 30,
+                )
               ],
             ),
-            backgroundColor: Palette.orange,
+            titleSpacing: 4,
+            backgroundColor: Palette.primary,
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(50),
               child: Expanded(
@@ -103,7 +110,7 @@ class DrinksViewState extends State<DrinksView> {
                       ),
                       prefixIcon: const Icon(
                         Icons.search,
-                        color: Palette.orange,
+                        color: Palette.primary,
                         size: 26,
                       ),
                       suffixIcon: searchController.text.isNotEmpty && drinksViewModel.isSearching
@@ -132,27 +139,9 @@ class DrinksViewState extends State<DrinksView> {
                           : null,
                       fillColor: Palette.white,
                       isDense: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(
-                          color: Palette.white,
-                          width: 2,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(
-                          color: Palette.white,
-                          width: 2,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(
-                          color: Palette.white,
-                          width: 2,
-                        ),
-                      ),
+                      enabledBorder: InputStyles.outlinedInputBorder,
+                      border: InputStyles.outlinedInputBorder,
+                      focusedBorder: InputStyles.outlinedInputBorder,
                     ),
                     onFieldSubmitted: (String value) async {
                       searchFocusNode.unfocus();
@@ -162,122 +151,133 @@ class DrinksViewState extends State<DrinksView> {
                 ),
               ),
             ),
+            elevation: 6,
+            shadowColor: Colors.black,
           ),
         ),
         backgroundColor: Palette.white,
-        body: Container(
-          alignment: Alignment.center,
-          child: drinksViewModel.isLoading
-              ? const CircularProgressIndicator(
-                  color: Palette.orange,
-                )
-              : RefreshIndicator(
-                  color: Palette.orange,
-                  onRefresh: () async {
-                    await drinksViewModel.getDrinks(searchController.text);
-                  },
-                  child: drinksViewModel.drinks.isEmpty && !drinksViewModel.isLoading
-                      ? SingleChildScrollView(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          child: Container(
-                            height: MediaQuery.of(context).size.height -
-                                (MediaQuery.of(context).padding.top + appBarHeight),
-                            alignment: Alignment.center,
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Spacer(),
-                                Icon(
-                                  Icons.local_bar_rounded,
-                                  color: Palette.orange,
-                                  size: 50,
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Nenhum drink encontrado.',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: Palette.grayMedium,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                Spacer(),
-                              ],
-                            ),
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: drinksViewModel.drinks.length,
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 6,
-                          ),
-                          itemBuilder: (BuildContext context, int index) => ListTile(
-                            title: Text(
-                              drinksViewModel.drinks[index].name,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: Palette.grayMedium,
+        body: drinksViewModel.isLoading
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Palette.primary,
+                ),
+              )
+            : RefreshIndicator(
+                color: Palette.primary,
+                onRefresh: () async {
+                  await drinksViewModel.getDrinks(searchController.text);
+                },
+                child: drinksViewModel.drinks.isEmpty && !drinksViewModel.isLoading
+                    ? SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        child: Container(
+                          height:
+                              MediaQuery.of(context).size.height - (MediaQuery.of(context).padding.top + appBarHeight),
+                          alignment: Alignment.center,
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Spacer(),
+                              Icon(
+                                Icons.local_bar_rounded,
+                                color: Palette.primary,
+                                size: 50,
                               ),
-                            ),
-                            subtitle: Text(
-                              drinksViewModel.drinks[index].category,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: Palette.grayMedium,
-                              ),
-                            ),
-                            leading: SizedBox(
-                              height: double.infinity,
-                              width: 55,
-                              child: TextButton(
-                                onPressed: () {
-                                  Functions.showNetworkImage(
-                                    context,
-                                    drinksViewModel.drinks[index].urlImage,
-                                  );
-                                },
-                                style: const ButtonStyle(
-                                  padding: MaterialStatePropertyAll(EdgeInsets.zero),
-                                  foregroundColor: MaterialStatePropertyAll(Palette.orange),
-                                ),
-                                child: CachedNetworkImage(
-                                  imageUrl: drinksViewModel.drinks[index].urlImage,
-                                  placeholder: (context, url) {
-                                    return Container(
-                                      alignment: Alignment.center,
-                                      child: const CircularProgressIndicator(
-                                        backgroundColor: Palette.white,
-                                        color: Palette.orange,
-                                        strokeWidth: 3,
-                                      ),
-                                    );
-                                  },
-                                  errorWidget: (context, url, error) => const Icon(
-                                    Icons.local_bar_rounded,
-                                    color: Palette.orange,
-                                    size: 30,
-                                  ),
+                              SizedBox(height: 10),
+                              Text(
+                                'Nenhum drink encontrado.',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  color: Palette.grayMedium,
                                 ),
                               ),
-                            ),
-                            onTap: () {
-                              drinksDetailsViewModel.setDrink(drinksViewModel.drinks[index]);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const DrinksDetailsView(),
-                                ),
-                              );
-                            },
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Spacer(),
+                            ],
                           ),
                         ),
-                ),
-        ),
+                      )
+                    : ListView.builder(
+                        itemCount: drinksViewModel.drinks.length,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                        ),
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        controller: scrollController,
+                        itemBuilder: (BuildContext context, int index) => ListTile(
+                          title: Text(
+                            drinksViewModel.drinks[index].name,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Palette.grayMedium,
+                            ),
+                          ),
+                          subtitle: Text(
+                            drinksViewModel.drinks[index].category,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Palette.grayMedium,
+                            ),
+                          ),
+                          leading: SizedBox(
+                            width: 60,
+                            child: TextButton(
+                              onPressed: () {
+                                Functions.showNetworkImage(
+                                  context,
+                                  drinksViewModel.drinks[index].urlImage,
+                                );
+                              },
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                foregroundColor: Palette.primary,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              child: CachedNetworkImage(
+                                imageUrl: drinksViewModel.drinks[index].urlImage,
+                                imageBuilder: (context, imageProvider) {
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Image(image: imageProvider),
+                                  );
+                                },
+                                placeholder: (context, url) {
+                                  return Container(
+                                    alignment: Alignment.center,
+                                    child: const CircularProgressIndicator(
+                                      backgroundColor: Palette.white,
+                                      color: Palette.primary,
+                                      strokeWidth: 3,
+                                    ),
+                                  );
+                                },
+                                errorWidget: (context, url, error) => const Icon(
+                                  Icons.local_bar_rounded,
+                                  color: Palette.primary,
+                                  size: 30,
+                                ),
+                              ),
+                            ),
+                          ),
+                          onTap: () {
+                            drinksDetailsViewModel.setDrink(drinksViewModel.drinks[index]);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DrinksDetailsView(),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+              ),
       ),
     );
   }
